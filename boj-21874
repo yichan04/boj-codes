@@ -1,0 +1,29 @@
+#include "hat.h"
+#include <vector>
+using namespace std;
+
+void init(int N)
+{
+	return;
+}
+
+int call(vector<int> F, vector<int> B, int num)
+{
+	long long n=F.size();
+    if(num==n-1)
+    {
+        int sum=0;
+        for(int i=0;i<n;i++) sum+=F[i];
+        return sum%64;
+    }
+    else
+    {
+        int sum=0;
+        sum=B[n-1];
+        for(int i=0;i<num;i++)
+            sum=(sum-F[i]+64)%64;
+        for(int i=num;i<n-1;i++)
+            sum=(sum-B[i]+64)%64;
+        return sum;
+    }
+}
