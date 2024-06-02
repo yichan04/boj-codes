@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<int> arr[201000];
+int n,m;
+int cnt=0;
+long long ans=1;
+bool visited[201000];
+void dfs(int x)
+{
+    visited[x]=true;
+    cnt++;
+    for(int i=0;i<arr[x].size();i++)
+    {
+        int y=arr[x][i];
+        if(!visited[y])
+            dfs(y);
+    }
+}
+int main(void)
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int a,b;
+        cin>>a>>b;
+        arr[a].push_back(b);
+        arr[b].push_back(a);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(!visited[i])
+        {
+            cnt=0;
+            dfs(i);
+            ans*=cnt;
+            ans%=1000000007;
+        }
+    }
+    cout<<ans;
+}
