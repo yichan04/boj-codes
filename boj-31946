@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <stdlib.h>
+using namespace std;
+int a;
+int arr[200][200];
+int n,m;
+bool visited[200][200]={false};
+void dfs(int x,int y)
+{
+    visited[x][y]=true;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(arr[j][i]==arr[x][y]&&!visited[j][i]&&abs(y-i)+abs(x-j)<=a){
+                dfs(j,i);
+            }
+        }
+    }
+}
+int main(void)
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin>>n>>m;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cin>>arr[j][i];
+        }
+    }
+    cin>>a;
+    dfs(0,0);
+    if(visited[m-1][n-1]==true)
+        cout<<"ALIVE";
+    else
+        cout<<"DEAD";
+    return 0;
+}
